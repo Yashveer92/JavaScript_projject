@@ -1,1 +1,1 @@
-# JavaScript_projject
+# JavaScript_project
