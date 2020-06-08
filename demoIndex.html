@@ -1,31 +1,71 @@
 <html>
 <head>
 <title>Demo Client Validation</title>
+<style>
+.validation-error-label{
+color:red;
+}
+</style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="./jquery.js"></script>
 <script src="./jquery.validate.js" ></script>
 <script src="./validation.js" ></script>
 </head>
 <body style="padding:10px;">
-<div class="row">
-<div class="col-md-8">
-<form class="form-validate">
+
+<form id="form-validate">
+ <div class="col-md-12"> 
+ <div class="col-md-8"> 
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" data-rule-mandatory="true" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control" name="email" data-rule-mandatory="true" aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  <div class="col-md-8"> 
+	  <div class="form-group">
+		<label for="exampleInputPassword1">Password</label>
+		<input type="password" class="form-control" name="password" data-rule-mandatory="true" placeholder="Password">
+	  </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+   
+  <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+	<button id="submit_icon" class="btn btn-primary" onclick="clone()">Clone Element</button>
+</div>
+</div>
+</form>
 
-</form></div>
+<div id="clone_div" style="display:none;">
+<div class="col-md-8"> 
+	<div class="form-group">
+		<label>Email address</label>
+		<input type="email" id="clone_email_id_0" class="form-control" name="email" data-rule-mandatory="true" placeholder="Enter email">
+		<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+</div>
+<div class="col-md-8"> 
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="clone_pass_id_0" class="form-control" name="password" data-rule-mandatory="true" placeholder="Password">
+  </div>
+</div>
 </div>
 </body>
+<script>
+var i = 0;
+function clone(){
+i++;
+var element = $("#clone_div").clone().contents();
+$(element).css("display","block");
+console.log($(element).find('#clone_email_id_0').attr('id'));
+$(element).find('#clone_email_id_0').prop('name','email_'+i);
+$(element).find('#clone_pass_id_0').prop('name','password_'+i);
+$(element).find('#clone_email_id_0').prop('id','clone_email_id_'+i);
+$(element).find('#clone_pass_id_0').prop('id','clone_pass_id_'+i);
+$('#submit').before(element); 
+//console.log($(element).find(':input[type="email"]'));
+$('.form-validate').validate();
+}
+
+</script>
 </html>
